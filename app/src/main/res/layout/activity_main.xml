@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="it.future.payh.MainActivity">
+
+    <TextView
+        android:id="@+id/homeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/mainActivityTitle"
+        style="?textAppearanceBody1"/>
+
+    <TextView
+        android:id="@+id/homeSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/homeTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Ordered by: most recent to pay"
+        style="?textAppearanceBody2"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/homeTitle"
+        app:layout_constraintBottom_toBottomOf="@id/homeSubtitle"
+        android:layout_marginEnd="16dp"
+        app:srcCompat="@drawable/ic_sort_grey_24dp"
+        android:contentDescription="@string/orderByBtn_cd"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="4dp"/>
+
 
 </android.support.constraint.ConstraintLayout>

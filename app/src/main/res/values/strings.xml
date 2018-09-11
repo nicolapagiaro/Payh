@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Payh!</string>
+
+    <!-- MainActivity strings -->
+    <string name="mainActivityTitle">I tuoi abbonamenti</string>
+    <string name="mainActivitySubtitle">Ordinati per: %1$s</string>
+    <string-array name="orderByType">
+        <item>piú recente da pagare</item>
+        <item>prezzo decrescente</item>
+        <item>prezzo crescente</item>
+    </string-array>
+    <string name="orderByBtn_cd">sortByIcon</string>
 </resources>

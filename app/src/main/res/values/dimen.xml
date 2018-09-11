@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- text dimension -->
+    <dimen name="titleSize">18sp</dimen>
+    <dimen name="textSizeBody1">14sp</dimen>
+    <dimen name="textSizeBody2">11sp</dimen>
+</resources>
