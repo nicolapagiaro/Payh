@@ -5,5 +5,7 @@
     <item android:id="@+id/main_act_fav_menu"
         android:title="@string/main_menu_fav"
         android:icon="@drawable/ic_favorite_grey_24dp"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:tooltipText="@string/main_menu_fav"
+        />
 </menu>

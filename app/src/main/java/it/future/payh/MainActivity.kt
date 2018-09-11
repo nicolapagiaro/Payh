@@ -2,7 +2,9 @@ package it.future.payh
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.ActionBar
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,10 +12,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // remove the drop shadow of the appbar
-        supportActionBar?.elevation = 0F
-        supportActionBar?.setDisplayShowCustomEnabled(true)
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.setCustomView(R.layout.custom_action_bar)
+        // setup a custom ActionBar
+        DecorationHelper.setupCustomActionBar(supportActionBar!!)
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_activity_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            android.R.id.home -> {
+                Toast.makeText(applicationContext, "Search#1 menu tapped", Toast.LENGTH_SHORT).show()
+            }
+            R.id.main_act_fav_menu -> {
+                Toast.makeText(applicationContext, "Fav menu tapped", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

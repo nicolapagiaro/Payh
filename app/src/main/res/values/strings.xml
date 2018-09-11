@@ -10,4 +10,8 @@
         <item>prezzo crescente</item>
     </string-array>
     <string name="orderByBtn_cd">sortByIcon</string>
+
+    <!-- MainActivity menu strings -->
+    <string name="main_menu_fav">Preferiti</string>
+    <string name="main_menu_search">Cerca</string>
 </resources>

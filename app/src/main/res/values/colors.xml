@@ -10,7 +10,7 @@
     <color name="error">#B00020</color>
 
     <color name="onPrimary">#ffffff</color>
-    <color name="onSecondary">#000000</color>
+    <color name="onSecondary">#ffffff</color>
     <color name="onSurface1">#DE000000</color>
     <color name="onSurface2">#8A000000</color>
     <color name="onBackground">#000000</color>
