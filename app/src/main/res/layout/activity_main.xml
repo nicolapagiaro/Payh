@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_add_grey_24dp"

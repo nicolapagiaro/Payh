@@ -9,7 +9,7 @@ import it.future.payh.storage.entities.Subscription
 
 class SubscriptionsViewModel : ViewModel() {
 
-    private var subsLiveData : MutableLiveData<List<Subscription>>? = null
+    private var subsLiveData : MutableLiveData<ArrayList<Subscription>>? = null
 
     init {
 
@@ -31,5 +31,5 @@ class SubscriptionsViewModel : ViewModel() {
         }, 3000)
     }
 
-    fun getSubsData(): LiveData<List<Subscription>>? = subsLiveData
+    fun getSubsData(): LiveData<ArrayList<Subscription>>? = subsLiveData
 }

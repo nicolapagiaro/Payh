@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Payh!</string>
 
-    <!-- MainActivity strings -->
+    <!-- Homepage strings -->
     <string name="mainActivityTitle">I tuoi abbonamenti</string>
     <string name="mainActivitySubtitle">Ordinati per: %1$s</string>
     <string-array name="orderByType">

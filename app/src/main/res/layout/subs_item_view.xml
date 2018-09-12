@@ -1,15 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/subsItemContainer"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="@drawable/subs_item_border">
+    
+    <ImageView
+        android:id="@+id/subsIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        app:srcCompat="@drawable/ic_android_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
-        android:id="@+id/subsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/subsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_gravity="center_vertical"/>
+        app:layout_constraintStart_toEndOf="@id/subsIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/subsExpires"
+        android:text="Name"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/subsExpires"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/subsIcon"
+        app:layout_constraintTop_toBottomOf="@id/subsName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Domani"/>
+
+
+    <TextView
+        android:id="@+id/subsPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/subsPlanType"
+        android:text="€ 9,99"/>
+
+    <TextView
+        android:id="@+id/subsPlanType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subsPrice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Normal"/>
+
+</android.support.constraint.ConstraintLayout>

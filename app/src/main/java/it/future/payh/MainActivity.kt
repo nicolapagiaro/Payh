@@ -17,9 +17,13 @@ class MainActivity : AppCompatActivity() {
         DecorationHelper.setupCustomActionBar(supportActionBar!!)
 
         // display the home page fragment
+        val homepage = Homepage.newInstance()
         supportFragmentManager.beginTransaction()
-                .add(R.id.main_act_frag_space, Homepage.newInstance(), "HomepageFrag")
+                .add(R.id.main_act_frag_space, homepage, "HomepageFrag")
                 .commit()
+
+        // simple fab implementation
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

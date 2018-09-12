@@ -5,14 +5,17 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import it.future.payh.R
+import it.future.payh.SubscriptionsItemDecoration
 import it.future.payh.SubscriptionsListAdapter
 import it.future.payh.storage.entities.Subscription
 import it.future.payh.viewModels.SubscriptionsViewModel
+import kotlinx.android.synthetic.main.home_frag.*
 import kotlinx.android.synthetic.main.home_frag.view.*
 
 /**
@@ -37,19 +40,19 @@ class Homepage : Fragment() {
 
         // setting up recycler view
         view.rvSubs.layoutManager = LinearLayoutManager(context)
+        view.rvSubs.addItemDecoration(SubscriptionsItemDecoration())
 
         // init the observe pattern on the list of subscriptions
         ViewModelProviders.of(this)
                 .get(SubscriptionsViewModel::class.java)
-                .getSubsData()?.observe(this, Observer<List<Subscription>> {
-                    Log.d("Data", it!!.toString())
+                .getSubsData()?.observe(this, Observer<ArrayList<Subscription>> {
 
                     if(subsListAdapter == null) {
                         subsListAdapter =  SubscriptionsListAdapter(it, context!!)
                         view.rvSubs.adapter  = subsListAdapter
                     }
                     else {
-                        subsListAdapter?.setDataSet(it)
+                        subsListAdapter?.updateDataSet()
                     }
                 })
 
