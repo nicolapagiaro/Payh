@@ -7,11 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import it.future.payh.storage.entities.Subscription
 import kotlinx.android.synthetic.main.subs_item_view.view.*
+import android.support.v7.util.DiffUtil
+import android.util.Log
 
 /**
  * Subscriptions adapter for the main activity recycler view
  */
-class SubscriptionsListAdapter(var subs: List<Subscription>, private val context: Context) : RecyclerView.Adapter<SubscriptionsListAdapter.SubscriptionView>() {
+class SubscriptionsListAdapter(private var subs: List<Subscription>, private val context: Context) : RecyclerView.Adapter<SubscriptionsListAdapter.SubscriptionView>() {
+
+    fun setDataSet(newSubs: List<Subscription>) {
+        val oldList = this.subs
+        this.subs = newSubs
+        val diffResult = DiffUtil.calculateDiff(SubscriptionsDiffUtil(newSubs, oldList), true)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     override fun onCreateViewHolder(view: ViewGroup, position: Int): SubscriptionView {
         return SubscriptionView(LayoutInflater.from(context).inflate(R.layout.subs_item_view, view, false))

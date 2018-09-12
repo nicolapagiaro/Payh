@@ -6,50 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="it.future.payh.MainActivity">
 
-    <TextView
-        android:id="@+id/homeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/mainActivityTitle"
-        style="?textAppearanceBody1"/>
-
-    <TextView
-        android:id="@+id/homeSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/homeTitle"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/mainActivitySubtitle"
-        style="?textAppearanceBody2"/>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/homeTitle"
-        app:layout_constraintBottom_toBottomOf="@id/homeSubtitle"
-        android:layout_marginEnd="16dp"
-        app:srcCompat="@drawable/ic_sort_grey_24dp"
-        android:contentDescription="@string/orderByBtn_cd"
-        android:background="?selectableItemBackgroundBorderless"
-        android:padding="4dp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvSubs"
+    <FrameLayout
+        android:id="@+id/main_act_frag_space"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/homeSubtitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="8dp"/>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
