@@ -21,9 +21,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .add(R.id.main_act_frag_space, homepage, "HomepageFrag")
                 .commit()
-
-        // simple fab implementation
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

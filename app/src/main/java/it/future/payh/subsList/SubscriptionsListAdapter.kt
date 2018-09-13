@@ -1,12 +1,14 @@
-package it.future.payh
+package it.future.payh.subsList
 
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import it.future.payh.R
 import it.future.payh.storage.entities.Subscription
 import kotlinx.android.synthetic.main.subs_item_view.view.*
 
@@ -15,13 +17,17 @@ import kotlinx.android.synthetic.main.subs_item_view.view.*
  */
 class SubscriptionsListAdapter(
         private var subs: ArrayList<Subscription>?,
-        private val context: Context) : RecyclerView.Adapter<SubscriptionsListAdapter.SubscriptionView>() {
+        private val context: Context,
+        private val bridge: SubscriptionsBridge) : RecyclerView.Adapter<SubscriptionsListAdapter.SubscriptionView>() {
 
     /**
      * Function to change the data set with new data entry
      */
-    fun updateDataSet() {
-        notifyDataSetChanged()
+    fun updateDataSet(newSubs: ArrayList<Subscription>?) {
+        val diffResult = DiffUtil.calculateDiff(SubscriptionsDiffHelper(newSubs!!, this.subs!!))
+        diffResult.dispatchUpdatesTo(this@SubscriptionsListAdapter)
+
+        this.subs = newSubs
     }
 
     override fun onCreateViewHolder(view: ViewGroup, position: Int): SubscriptionView {
@@ -30,6 +36,10 @@ class SubscriptionsListAdapter(
 
     override fun onBindViewHolder(view: SubscriptionView, position: Int) {
         view.display(subs!![position])
+
+        view.itemView.setOnClickListener {
+            bridge.onItemClick(subs!![position])
+        }
     }
 
     override fun getItemCount(): Int = subs!!.size
@@ -46,6 +56,10 @@ class SubscriptionsListAdapter(
             // info of the subscription
             itemView.subsName.text = sub.name
         }
+    }
+
+    interface SubscriptionsBridge {
+        fun onItemClick(obj : Subscription)
     }
 }
 

@@ -1,4 +1,4 @@
-package it.future.payh
+package it.future.payh.subsList
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

@@ -5,17 +5,15 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import it.future.payh.R
-import it.future.payh.SubscriptionsItemDecoration
-import it.future.payh.SubscriptionsListAdapter
+import it.future.payh.subsList.SubscriptionsItemDecoration
+import it.future.payh.subsList.SubscriptionsListAdapter
 import it.future.payh.storage.entities.Subscription
 import it.future.payh.viewModels.SubscriptionsViewModel
-import kotlinx.android.synthetic.main.home_frag.*
 import kotlinx.android.synthetic.main.home_frag.view.*
 
 /**
@@ -46,13 +44,21 @@ class Homepage : Fragment() {
         ViewModelProviders.of(this)
                 .get(SubscriptionsViewModel::class.java)
                 .getSubsData()?.observe(this, Observer<ArrayList<Subscription>> {
+                    val subs = ArrayList<Subscription>().apply {
+                        addAll(it!!)
+                    }
 
                     if(subsListAdapter == null) {
-                        subsListAdapter =  SubscriptionsListAdapter(it, context!!)
+                        subsListAdapter = SubscriptionsListAdapter(subs, context!!, object : SubscriptionsListAdapter.SubscriptionsBridge {
+
+                            override fun onItemClick(obj : Subscription) {
+                                Toast.makeText(context, "Item with id${obj.id} clicked", Toast.LENGTH_SHORT).show()
+                            }
+                        })
                         view.rvSubs.adapter  = subsListAdapter
                     }
                     else {
-                        subsListAdapter?.updateDataSet()
+                        subsListAdapter?.updateDataSet(subs)
                     }
                 })
 
