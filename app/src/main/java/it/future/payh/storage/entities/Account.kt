@@ -6,8 +6,9 @@ import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.ForeignKey.CASCADE
 import android.arch.persistence.room.ForeignKey.SET_NULL
 import android.arch.persistence.room.PrimaryKey
+import it.future.payh.storage.DatabaseContract
 
-@Entity(tableName = "account", foreignKeys = [
+@Entity(tableName = DatabaseContract.accountTableName, foreignKeys = [
     ForeignKey(
             entity = Category::class,
             parentColumns = ["id"],

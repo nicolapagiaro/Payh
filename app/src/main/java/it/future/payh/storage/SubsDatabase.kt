@@ -6,19 +6,22 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import it.future.payh.BuildConfig
 import it.future.payh.storage.dao.SubscriptionsDao
+import it.future.payh.storage.entities.Account
+import it.future.payh.storage.entities.Category
+import it.future.payh.storage.entities.Pricing
 import it.future.payh.storage.entities.Subscription
 
 /**
  * An abstract class that implements singleton guidelines to access to the subscriptions
  * database
  */
-@Database(entities = [(Subscription::class)], version = 1)
+@Database(entities = [Subscription::class, Account::class, Category::class, Pricing::class],
+        version = DatabaseContract.databaseVersion)
 abstract class SubsDatabase : RoomDatabase() {
 
     abstract fun subscriptionsDao() : SubscriptionsDao
 
     companion object {
-        private const val FILE_NAME = "subs.db"
         private var INSTANCE: SubsDatabase? = null
 
         fun getInstance(context: Context): SubsDatabase? {
@@ -29,7 +32,7 @@ abstract class SubsDatabase : RoomDatabase() {
                                 .build()
                     }
                     else {
-                        Room.databaseBuilder(context.applicationContext, SubsDatabase::class.java, FILE_NAME)
+                        Room.databaseBuilder(context.applicationContext, SubsDatabase::class.java, DatabaseContract.databaseName)
                                 .build()
                     }
                 }

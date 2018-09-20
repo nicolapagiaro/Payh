@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        fakeData()
+
         // setup a custom ActionBar
         DecorationHelper.setupCustomActionBar(supportActionBar!!)
 
@@ -39,5 +41,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun fakeData() {
+
     }
 }
