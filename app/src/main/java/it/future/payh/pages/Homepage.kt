@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import it.future.payh.R
+import it.future.payh.storage.SubsDatabase
 import it.future.payh.subsList.SubscriptionsItemDecoration
 import it.future.payh.subsList.SubscriptionsListAdapter
 import it.future.payh.storage.entities.Subscription
@@ -20,7 +21,8 @@ import kotlinx.android.synthetic.main.home_frag.view.*
  * Homepage fragment: list of subscriptions
  */
 class Homepage : Fragment() {
-    private var subsListAdapter : SubscriptionsListAdapter? = null
+    private lateinit var mDb : SubsDatabase
+    private var mListAdapter: SubscriptionsListAdapter? = null
 
     companion object {
 
@@ -36,6 +38,9 @@ class Homepage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.home_frag, container, false)
 
+        // get database instance
+        mDb = SubsDatabase.getInstance(context!!)!!
+
         // setting up recycler view
         view.rvSubs.layoutManager = LinearLayoutManager(context)
         view.rvSubs.addItemDecoration(SubscriptionsItemDecoration())
@@ -43,22 +48,23 @@ class Homepage : Fragment() {
         // init the observe pattern on the list of subscriptions
         ViewModelProviders.of(this)
                 .get(SubscriptionsViewModel::class.java)
-                .getSubsData()?.observe(this, Observer<ArrayList<Subscription>> {
+                .getSubscriptionData(mDb)
+                .observe(this, Observer<List<Subscription>> {
                     val subs = ArrayList<Subscription>().apply {
                         addAll(it!!)
                     }
 
-                    if(subsListAdapter == null) {
-                        subsListAdapter = SubscriptionsListAdapter(subs, context!!, object : SubscriptionsListAdapter.SubscriptionsBridge {
+                    if(mListAdapter == null) {
+                        mListAdapter = SubscriptionsListAdapter(subs, context!!, object : SubscriptionsListAdapter.SubscriptionsBridge {
 
                             override fun onItemClick(obj : Subscription) {
                                 Toast.makeText(context, "Item with id${obj.id} clicked", Toast.LENGTH_SHORT).show()
                             }
                         })
-                        view.rvSubs.adapter  = subsListAdapter
+                        view.rvSubs.adapter  = mListAdapter
                     }
                     else {
-                        subsListAdapter?.updateDataSet(subs)
+                        mListAdapter?.updateDataSet(subs)
                     }
                 })
 
