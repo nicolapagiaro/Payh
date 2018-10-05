@@ -1,7 +1,8 @@
 package it.future.payh.subsList
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import android.util.Log
+import it.future.payh.helpers.DebugLog
 import it.future.payh.storage.entities.Subscription
 
 class SubscriptionsDiffHelper (
@@ -13,10 +14,10 @@ class SubscriptionsDiffHelper (
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        return newList[newPosition].id == oldList[oldPosition].id
+        return  newList[newPosition].id == oldList[oldPosition].id
     }
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        return newList[newPosition].name == oldList[oldPosition].name
+        return  newList[newPosition].description == oldList[oldPosition].description
     }
 }

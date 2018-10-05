@@ -3,8 +3,8 @@ package it.future.payh.subsList
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +16,16 @@ import kotlinx.android.synthetic.main.subs_item_view.view.*
  * Subscriptions adapter for the main activity recycler view
  */
 class SubscriptionsListAdapter(
-        private var subs: ArrayList<Subscription>?,
         private val context: Context,
-        private val bridge: SubscriptionsBridge) : RecyclerView.Adapter<SubscriptionsListAdapter.SubscriptionView>() {
+        private val bridge: SubscriptionsBridge) : androidx.recyclerview.widget.RecyclerView.Adapter<SubscriptionsListAdapter.SubscriptionView>() {
+
+    private var subs : List<Subscription> = ArrayList()
 
     /**
      * Function to change the data set with new data entry
      */
-    fun updateDataSet(newSubs: ArrayList<Subscription>?) {
-        val diffResult = DiffUtil.calculateDiff(SubscriptionsDiffHelper(newSubs!!, this.subs!!))
+    fun updateDataSet(newSubs: List<Subscription>) {
+        val diffResult = DiffUtil.calculateDiff(SubscriptionsDiffHelper(newSubs, this.subs))
         diffResult.dispatchUpdatesTo(this@SubscriptionsListAdapter)
 
         this.subs = newSubs
@@ -35,28 +36,33 @@ class SubscriptionsListAdapter(
     }
 
     override fun onBindViewHolder(view: SubscriptionView, position: Int) {
-        view.display(subs!![position])
+        view.display(subs[position])
 
         view.itemView.setOnClickListener {
-            bridge.onItemClick(subs!![position])
+            bridge.onItemClick(subs[position])
         }
     }
 
-    override fun getItemCount(): Int = subs!!.size
+    override fun getItemCount(): Int = subs.size
 
     /**
-     * Item view holder
+     * Subscription item view holder
      */
-    class SubscriptionView(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SubscriptionView(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+
+        /**
+         * Function that prepare the data to be displayed in the view
+         */
         fun display(sub: Subscription) {
             // custom border color of the item
             val bg = itemView.subsItemContainer.background as GradientDrawable
             bg.setStroke(4, Color.parseColor("#43A047"))
 
             // info of the subscription
-            itemView.subsName.text = sub.name
+            itemView.subsName.text = sub.id.toString()
         }
     }
+
 
     interface SubscriptionsBridge {
         fun onItemClick(obj : Subscription)

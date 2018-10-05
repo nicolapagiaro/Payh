@@ -1,16 +1,14 @@
 package it.future.payh.pages
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import it.future.payh.helpers.DebugLog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import it.future.payh.R
-import it.future.payh.storage.SubsDatabase
 import it.future.payh.subsList.SubscriptionsItemDecoration
 import it.future.payh.subsList.SubscriptionsListAdapter
 import it.future.payh.storage.entities.Subscription
@@ -20,15 +18,29 @@ import kotlinx.android.synthetic.main.home_frag.view.*
 /**
  * Homepage fragment: list of subscriptions
  */
-class Homepage : Fragment() {
-    private lateinit var mDb : SubsDatabase
-    private var mListAdapter: SubscriptionsListAdapter? = null
+class Homepage : androidx.fragment.app.Fragment() {
+    private lateinit var mListAdapter: SubscriptionsListAdapter
+    private lateinit var subsViewmodel : SubscriptionsViewModel
 
     companion object {
 
         fun newInstance(): Homepage {
             return Homepage()
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val bridge = object : SubscriptionsListAdapter.SubscriptionsBridge {
+
+            override fun onItemClick(obj: Subscription) {
+                Toast.makeText(context, "Item with id${obj.id} clicked", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        mListAdapter = SubscriptionsListAdapter(context!!, bridge)
+        subsViewmodel = ViewModelProviders.of(this@Homepage).get(SubscriptionsViewModel::class.java)
     }
 
 
@@ -38,35 +50,17 @@ class Homepage : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.home_frag, container, false)
 
-        // get database instance
-        mDb = SubsDatabase.getInstance(context!!)!!
-
         // setting up recycler view
-        view.rvSubs.layoutManager = LinearLayoutManager(context)
+        view.rvSubs.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         view.rvSubs.addItemDecoration(SubscriptionsItemDecoration())
+        view.rvSubs.adapter = mListAdapter
 
         // init the observe pattern on the list of subscriptions
-        ViewModelProviders.of(this)
-                .get(SubscriptionsViewModel::class.java)
-                .getSubscriptionData(mDb)
-                .observe(this, Observer<List<Subscription>> {
-                    val subs = ArrayList<Subscription>().apply {
-                        addAll(it!!)
-                    }
+        subsViewmodel.mSubscriptions.observe(this@Homepage, Observer<List<Subscription>> {
+           DebugLog.d("Update data set", it.toString())
 
-                    if(mListAdapter == null) {
-                        mListAdapter = SubscriptionsListAdapter(subs, context!!, object : SubscriptionsListAdapter.SubscriptionsBridge {
-
-                            override fun onItemClick(obj : Subscription) {
-                                Toast.makeText(context, "Item with id${obj.id} clicked", Toast.LENGTH_SHORT).show()
-                            }
-                        })
-                        view.rvSubs.adapter  = mListAdapter
-                    }
-                    else {
-                        mListAdapter?.updateDataSet(subs)
-                    }
-                })
+            mListAdapter.updateDataSet(it)
+        })
 
         return view
     }

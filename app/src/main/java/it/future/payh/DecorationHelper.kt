@@ -1,6 +1,6 @@
 package it.future.payh
 
-import android.support.v7.app.ActionBar
+import androidx.appcompat.app.ActionBar
 
 class DecorationHelper {
 
@@ -14,7 +14,7 @@ class DecorationHelper {
 
             // custom view
             actionBar.setDisplayShowCustomEnabled(true)
-            actionBar.displayOptions = android.support.v7.app.ActionBar.DISPLAY_SHOW_CUSTOM
+            actionBar.displayOptions = androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM
             actionBar.setCustomView(R.layout.custom_action_bar)
 
             // search button
